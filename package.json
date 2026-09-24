@@ -1,0 +1,37 @@
+{
+  "name": "pw-capstone-saradha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:negative": "playwright test --grep @negative",
+    "test:auth": "playwright test --grep @auth",
+    "test:cart": "playwright test --grep @cart",
+    "test:search": "playwright test --grep @search",
+    "test:support": "playwright test --grep @support",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quarksek-playwright-training/pw-capstone-saradha.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/quarksek-playwright-training/pw-capstone-saradha/issues"
+  },
+  "homepage": "https://github.com/quarksek-playwright-training/pw-capstone-saradha#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.5.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
