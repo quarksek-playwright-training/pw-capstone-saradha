@@ -29,9 +29,6 @@ export const test = base.extend<MyFixtures>({
         //await cartPage.navigateTo();
         await use(cartPage);
     },
-    // supportPage: async ({ page }, use) => {
-    //     await use(new SupportPage(page));
-    // },
 });
 
 export { expect } from '@playwright/test';
