@@ -28,11 +28,8 @@ for (const user of users) {
     setup(`Authenticate ${user.name}`, async ({ page }) => {
         const loginPage = new LoginPage(page);
         const basePage = new BasePage(page, "/");
-
-        // Open Login page
         await loginPage.navigateTo();
 
-        // Try to login with the existing account
         await loginPage.login(
             user.email,
             user.password
@@ -42,29 +39,23 @@ for (const user of users) {
 
         if (await loggedIn.isVisible().catch(() => false)) {
 
-            // Existing account
             console.log(
                 `${user.name} already exists. Login successful.`
             );
 
         } else {
 
-            // Account does not exist - create a new account
             await basePage.signup(
                 user.name,
                 user.email,
                 user.password
             );
 
-            // Verify account creation
             await expect(
                 page.locator("[data-qa='account-created']")
             ).toBeVisible();
 
-            // Continue after account creation
             await basePage.continueAfterSignup();
-
-            // AutomationExercise automatically logs the user in
             await expect(
                 page.getByText(/Logged in as/i)
             ).toBeVisible();
@@ -73,8 +64,6 @@ for (const user of users) {
                 `${user.name} was created and logged in successfully.`
             );
         }
-
-        // Save authenticated session
         await page.context().storageState({
             path: user.authFile,
         });
