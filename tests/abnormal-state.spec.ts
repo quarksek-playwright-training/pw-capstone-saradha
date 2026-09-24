@@ -1,5 +1,6 @@
 import { test, expect } from "../fixtures";
 
+// Adding comments
 test(
     "Application handles Add to Cart request failure",
     {

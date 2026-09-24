@@ -14,6 +14,7 @@ export class ProductPage extends BasePage {
         this.page.locator("#submit_search");
 
     async searchProduct(productName: string) {
+        await this.searchInput.waitFor({ state: 'visible', timeout: 10000 });
         await this.searchInput.fill(productName);
         await this.searchButton.click();
     }
