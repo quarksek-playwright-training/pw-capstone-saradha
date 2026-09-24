@@ -18,16 +18,6 @@ export class CartPage extends BasePage {
             .allTextContents();
     }
 
-    // async getProductPrice(productName: string): Promise<string> {
-    //     const productRow = this.cartRows.filter({
-    //         hasText: productName,
-    //     });
-
-    //     return await productRow
-    //         .locator(".cart_price")
-    //         .innerText();
-    // }
-
     async getProductPrice(productName: string): Promise<string> {
         const productPrice = this.page.locator(
             `//table[@id='cart_info_table']//tr[.//h4/a[normalize-space()='${productName}']]//td[contains(@class,'cart_price')]`
