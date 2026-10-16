@@ -3,3 +3,4 @@ export const searchTerms = [
     "Men Tshirt",
     "Sleeveless Dress",
 ];
+export const productName = "Men Tshirt";
