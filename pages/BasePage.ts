@@ -51,7 +51,7 @@ export class BasePage {
             .click();
     }
 
-    // Signup / Registration
+    // Signup
     async signup(
         name: string,
         email: string,
