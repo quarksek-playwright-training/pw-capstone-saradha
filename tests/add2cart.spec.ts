@@ -1,5 +1,6 @@
 
 import { test, expect } from "../fixtures";
+import { productName } from "../test-data/searchTerm";
 
 test(
     "User can add a product to cart and verify price using API",
@@ -8,8 +9,8 @@ test(
     },
     async ({ productPage, cartPage, page, request }) => {
 
-        const productName = "Blue Top";
-
+        //const productName = "Blue Top";
+        
         await productPage.searchProduct(productName);
 
         await productPage.addProductToCart(productName);

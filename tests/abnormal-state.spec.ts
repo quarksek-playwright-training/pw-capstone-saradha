@@ -1,4 +1,5 @@
 import { test, expect } from "../fixtures";
+import { productName } from "../test-data/searchTerm";
 
 // Adding comments
 test(
@@ -8,7 +9,8 @@ test(
     },
     async ({ page, productPage, cartPage }) => {
 
-        const productName = "Men Tshirt";
+        // const productName = "Men Tshirt";
+          await productPage.searchProduct(productName);
 
         //await cartPage.navigateTo();
 
