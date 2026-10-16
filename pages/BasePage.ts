@@ -1,10 +1,18 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class BasePage {
+
+    readonly loggedInLabel : Locator;
+
+    readonly accountCreatedMessage: Locator;
+
     constructor(
         protected readonly page: Page,
         private readonly path: string
-    ) {}
+    ) {
+        this.loggedInLabel = page.getByText(/Logged in as/i);
+        this.accountCreatedMessage = page.locator("[data-qa='account-created']");
+    }
 
     async navigateTo() {
         await this.page.goto(this.path, {
