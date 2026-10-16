@@ -15,6 +15,11 @@ export class LoginPage extends BasePage {
 
     private loginButton =
         this.page.getByRole("button", { name: "Login" });
+    readonly loginErrorMessage =
+        this.page.getByText("Your email or password is incorrect!");
+        readonly loginSuccessMessage =
+        this.page.getByText("Logged in as");
+
 
     async login(email: string, password: string) {
         await this.usernameInput.fill(email);

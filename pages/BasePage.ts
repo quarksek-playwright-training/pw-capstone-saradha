@@ -5,6 +5,8 @@ export class BasePage {
     readonly loggedInLabel : Locator;
 
     readonly accountCreatedMessage: Locator;
+    readonly getInTouchLabel: Locator;
+    readonly successMessage: Locator;
 
     constructor(
         protected readonly page: Page,
@@ -12,6 +14,8 @@ export class BasePage {
     ) {
         this.loggedInLabel = page.getByText(/Logged in as/i);
         this.accountCreatedMessage = page.locator("[data-qa='account-created']");
+        this.getInTouchLabel = page.getByText("Get In Touch");
+        this.successMessage = page.locator("#contact-page").getByText("Success! Your details have been submitted successfully.");
     }
 
     async navigateTo() {

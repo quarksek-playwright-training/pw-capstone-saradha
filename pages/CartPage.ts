@@ -4,7 +4,11 @@ import { BasePage } from "./BasePage";
 export class CartPage extends BasePage {
     constructor(page: Page) {
         super(page, "/view_cart");
+
     }
+    readonly productLinks = this.page.locator(".cart_description h4 a");
+    readonly deleteButtons = this.page.locator(".cart_quantity_delete");
+
 
     private cartRows = this.page.locator("#cart_info_table tbody tr");
 
