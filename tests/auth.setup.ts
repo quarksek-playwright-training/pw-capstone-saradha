@@ -35,8 +35,7 @@ for (const user of users) {
             user.email,
             user.password
         );
-
-        const loggedIn = page.getByText(/Logged in as/i);
+        const loggedIn = basePage.loggedInLabel;
 
         if (await loggedIn.isVisible().catch(() => false)) {
 

@@ -15,8 +15,6 @@ test(
 
         await loginPage.login( email, incorrectPassword);
         
-        await expect(
-            page.getByText('Your email or password is incorrect!')
-        ).toBeVisible();
+        await expect( loginPage.loginErrorMessage).toBeVisible();
     }
 );

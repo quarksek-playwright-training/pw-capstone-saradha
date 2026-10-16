@@ -1,11 +1,13 @@
 import { test, expect } from "@playwright/test";
+import { CartPage } from "../pages/CartPage";
 
 test(
     "Cart state is isolated between two users",
     {
         tag: ["@regression", "@cart"],
     },
-    async ({ browser }) => {
+    async ({ browser, page }) => {
+          const cart = new CartPage(page);
 
         //User 1 context
         const user1Context = await browser.newContext({
@@ -18,13 +20,9 @@ test(
     waitUntil: "domcontentloaded",
 });
 
-        const user1Products = user1Page.locator(
-            ".cart_description h4 a"
-        );
+        const user1Products = cart.productLinks;
         while (await user1Products.count() > 0) {
-            await user1Page
-                .locator(".cart_quantity_delete")
-                .first()
+            await cart.deleteButtons.first()
                 .click();
 
             await expect(

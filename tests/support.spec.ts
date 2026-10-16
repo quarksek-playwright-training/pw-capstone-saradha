@@ -12,7 +12,7 @@ test(
         await basePage.navigateTo();
 
         await expect(
-            page.getByText("Get In Touch")
+            basePage.getInTouchLabel
         ).toBeVisible();
 
         page.once("dialog", async (dialog) => {
@@ -28,11 +28,7 @@ test(
 );
 
         await expect(
-            page
-                .locator("#contact-page")
-                .getByText(
-                    "Success! Your details have been submitted successfully."
-                )
+            basePage.successMessage
         ).toBeVisible();
     }
 );
