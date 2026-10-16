@@ -9,27 +9,20 @@ for (const searchTerm of searchTerms) {
             tag: ["@regression", "@search"],
         },
         async ({ productPage, page }) => {
-
-            // Open Products page
-            await productPage.navigateTo();
-
-            // Search using the data-driven search term
             await productPage.searchProduct(searchTerm);
 
-            // Get all products displayed after the search
-            const products = page.locator(".productinfo");
+      const products = productPage.getProducts();
+        await expect(products.first()).toBeVisible();
 
-            // At least one matching product should be displayed
-            await expect(products.first()).toBeVisible();
+     const productCount = await productPage.getProductCount();
+      console.log(`Number of products found: ${productCount}`);
 
-            const productCount = await products.count();
+     const productNames = await productPage.getProductNames();
 
-            for (let i = 0; i < productCount; i++) {
+    for (const productName of productNames) {
+    expect(productName).toContain(searchTerm);
+      }
 
-                const product = products.nth(i);
-
-                await expect(product).toContainText(searchTerm);
-            }
         }
     );
 }

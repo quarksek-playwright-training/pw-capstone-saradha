@@ -1,5 +1,7 @@
 import { test, expect } from "../fixtures";
+import { productName } from "../test-data/searchTerm";
 
+// Adding comments
 test(
     "Application handles Add to Cart request failure",
     {
@@ -7,10 +9,10 @@ test(
     },
     async ({ page, productPage, cartPage }) => {
 
-        const productName = "Men Tshirt";
+        // const productName = "Men Tshirt";
+          await productPage.searchProduct(productName);
 
-        // Make sure this product is not already in the cart
-        await cartPage.navigateTo();
+        //await cartPage.navigateTo();
 
         if (await cartPage.isProductInCart(productName)) {
             await cartPage.removeProduct(productName);
@@ -24,17 +26,16 @@ test(
             }
         );
 
-        await productPage.navigateTo();
+        //await productPage.navigateTo();
         await productPage.searchProduct(productName);
 
         await productPage.addProductToCart(productName);
+        await expect(productPage.addedMessage).toBeHidden();
+        console.log("Products are not added to the cart due to request failure")
 
-        await cartPage.navigateTo();
+        //await cartPage.navigateTo();
 
-        await expect(
-            page
-                .locator("#cart_info_table tbody tr")
-                .filter({ hasText: productName })
-        ).toHaveCount(0);
+
+        await expect(cartPage.tableRows.filter({ hasText: productName })).toHaveCount(0);
     }
 );

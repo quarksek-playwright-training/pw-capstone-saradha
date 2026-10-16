@@ -29,7 +29,7 @@
   "homepage": "https://github.com/quarksek-playwright-training/pw-capstone-saradha#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.5.1"
+    "@types/node": "^26.6.5"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

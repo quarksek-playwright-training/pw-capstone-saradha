@@ -1,27 +1,47 @@
 name: Playwright Tests
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [ automationexercise-capstone ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ automationexercise-capstone ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test
+        env:
+          PERSISTENT_USER_NAME: ${{ secrets.PERSISTENT_USER_NAME }}
+          PERSISTENT_USER_EMAIL: ${{ secrets.PERSISTENT_USER_EMAIL }}
+          PERSISTENT_USER_PASSWORD: ${{ secrets.PERSISTENT_USER_PASSWORD }}
+          USER2_NAME: ${{ secrets.USER2_NAME }}
+          USER2_EMAIL: ${{ secrets.USER2_EMAIL }}
+          USER2_PASSWORD: ${{ secrets.USER2_PASSWORD }}
+          INCORRECT_PASSWORD: ${{ secrets.INCORRECT_PASSWORD }}
+          SUPPORT_NAME: ${{ secrets.SUPPORT_NAME }}
+          SUPPORT_EMAIL: ${{ secrets.SUPPORT_EMAIL }}
+          SUPPORT_SUBJECT: ${{ secrets.SUPPORT_SUBJECT }}
+          SUPPORT_MESSAGE: ${{ secrets.SUPPORT_MESSAGE }}
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

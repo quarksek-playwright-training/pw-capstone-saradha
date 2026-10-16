@@ -1,5 +1,6 @@
 
 import { test, expect } from "../fixtures";
+import { productName } from "../test-data/searchTerm";
 
 test(
     "User can add a product to cart and verify price using API",
@@ -8,18 +9,15 @@ test(
     },
     async ({ productPage, cartPage, page, request }) => {
 
-        const productName = "Blue Top";
-
+        //const productName = "Blue Top";
+        
         await productPage.searchProduct(productName);
 
         await productPage.addProductToCart(productName);
 
-        await expect(page.getByText("Added!")).toBeVisible();
+        await expect(productPage.addedMessage).toBeVisible();
 
-await expect(page.getByText("Added!")).toBeVisible();
-
-
-        await page.getByText("View Cart").click();
+        await productPage.viewCartLink.click();
 
         
         const productNames = await cartPage.getProductNames();
@@ -27,6 +25,7 @@ await expect(page.getByText("Added!")).toBeVisible();
         expect(productNames).toContain(productName);
 
         const uiPrice = await cartPage.getProductPrice(productName);
+        console.log(`UI Price for ${productName}:`, uiPrice);
 
         expect(uiPrice).toBeTruthy();
         const response = await request.get("/api/productsList");
@@ -42,9 +41,9 @@ await expect(page.getByText("Added!")).toBeVisible();
         expect(apiProduct).toBeDefined();
 
         const apiPrice = apiProduct.price;
+        console.log(`API Price for ${productName}:`, apiPrice);
 
         expect(uiPrice).toBe(apiPrice);
-
 
         await cartPage.removeProduct(productName);
     }

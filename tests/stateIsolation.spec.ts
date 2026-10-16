@@ -1,11 +1,13 @@
 import { test, expect } from "@playwright/test";
+import { CartPage } from "../pages/CartPage";
 
 test(
     "Cart state is isolated between two users",
     {
         tag: ["@regression", "@cart"],
     },
-    async ({ browser }) => {
+    async ({ browser, page }) => {
+          const cart = new CartPage(page);
 
         //User 1 context
         const user1Context = await browser.newContext({
@@ -18,13 +20,9 @@ test(
     waitUntil: "domcontentloaded",
 });
 
-        const user1Products = user1Page.locator(
-            ".cart_description h4 a"
-        );
+        const user1Products = cart.productLinks;
         while (await user1Products.count() > 0) {
-            await user1Page
-                .locator(".cart_quantity_delete")
-                .first()
+            await cart.deleteButtons.first()
                 .click();
 
             await expect(
@@ -33,6 +31,7 @@ test(
         }
 
         await expect(user1Products).toHaveCount(0);
+        console.log("User 1 cart is empty");
         //User 2 context
         const user2Context = await browser.newContext({
             storageState: ".auth/user2.json",
@@ -68,6 +67,7 @@ test(
         );
 
         await expect(user2Products).toContainText("Blue Top");
+        console.log("User 2 cart contains Blue Top");
 
         await user1Page.goto("/view_cart", {
     waitUntil: "domcontentloaded",
@@ -81,6 +81,7 @@ test(
             .click();
 
         await expect(user2Products).toHaveCount(0);
+        //console.log("User 2 cart is empty");
         await user1Context.close();
         await user2Context.close();
     }

@@ -4,13 +4,18 @@ import { BasePage } from "./BasePage";
 export class CartPage extends BasePage {
     constructor(page: Page) {
         super(page, "/view_cart");
+
     }
+    readonly productLinks = this.page.locator(".cart_description h4 a");
+    readonly deleteButtons = this.page.locator(".cart_quantity_delete");
+
 
     private cartRows = this.page.locator("#cart_info_table tbody tr");
 
     private emptyCartMessage = this.page.getByText(
         "Cart is empty! Click here to buy products."
     );
+      tableRows = this.page.locator("#cart_info_table tbody tr");
 
     async getProductNames(): Promise<string[]> {
         return await this.cartRows
