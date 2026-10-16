@@ -10,11 +10,11 @@ test(
     async ({ loginPage, page }) => {
 
         await loginPage.navigateTo();
+        const email = process.env.PERSISTENT_USER_EMAIL!;
+        const incorrectPassword = process.env.INCORRECT_PASSWORD!;
 
-        await loginPage.login(
-            'palsardarsh@gmail.com',
-            'IncorrectPassword123'
-        );
+        await loginPage.login( email, incorrectPassword);
+        
         await expect(
             page.getByText('Your email or password is incorrect!')
         ).toBeVisible();
