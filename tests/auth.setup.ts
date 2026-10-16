@@ -1,6 +1,7 @@
 import { test as setup, expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
 import { BasePage } from "../pages/BasePage";
+import "dotenv/config";
 
 type UserCredentials = {
     name: string;
@@ -11,15 +12,15 @@ type UserCredentials = {
 
 const users: UserCredentials[] = [
     {
-        name: "Test User1",
-        email: "palsardarsh@gmail.com",
-        password: "TN45bl@9561",
+        name: process.env.PERSISTENT_USER_NAME!,
+        email: process.env.PERSISTENT_USER_EMAIL!,
+        password: process.env.PERSISTENT_USER_PASSWORD!,
         authFile: ".auth/user1.json",
     },
     {
-        name: "Test User 2",
-        email: "palsardarsh+test9@gmail.com",
-        password: "sara123",
+        name: process.env.USER2_NAME!,
+        email: process.env.USER2_EMAIL!,
+        password: process.env.USER2_PASSWORD!,
         authFile: ".auth/user2.json",
     },
 ];
