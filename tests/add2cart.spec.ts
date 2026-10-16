@@ -16,9 +16,6 @@ test(
 
         await expect(page.getByText("Added!")).toBeVisible();
 
-await expect(page.getByText("Added!")).toBeVisible();
-
-
         await page.getByText("View Cart").click();
 
         
@@ -27,6 +24,7 @@ await expect(page.getByText("Added!")).toBeVisible();
         expect(productNames).toContain(productName);
 
         const uiPrice = await cartPage.getProductPrice(productName);
+        console.log(`UI Price for ${productName}:`, uiPrice);
 
         expect(uiPrice).toBeTruthy();
         const response = await request.get("/api/productsList");
@@ -42,9 +40,9 @@ await expect(page.getByText("Added!")).toBeVisible();
         expect(apiProduct).toBeDefined();
 
         const apiPrice = apiProduct.price;
+        console.log(`API Price for ${productName}:`, apiPrice);
 
         expect(uiPrice).toBe(apiPrice);
-
 
         await cartPage.removeProduct(productName);
     }
