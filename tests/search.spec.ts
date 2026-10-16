@@ -10,19 +10,20 @@ for (const searchTerm of searchTerms) {
         },
         async ({ productPage, page }) => {
 
-            // Open Products page
-            await productPage.navigateTo();
+        
+            //await productPage.navigateTo();
 
-            // Search using the data-driven search term
+    
             await productPage.searchProduct(searchTerm);
 
-            // Get all products displayed after the search
+     
             const products = page.locator(".productinfo");
 
-            // At least one matching product should be displayed
+    
             await expect(products.first()).toBeVisible();
 
             const productCount = await products.count();
+            console.log(`Number of products found: ${productCount}`);
 
             for (let i = 0; i < productCount; i++) {
 
