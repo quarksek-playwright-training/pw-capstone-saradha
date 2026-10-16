@@ -52,13 +52,11 @@ for (const user of users) {
                 user.password
             );
 
-            await expect(
-                page.locator("[data-qa='account-created']")
-            ).toBeVisible();
+           await expect(basePage.accountCreatedMessage).toBeVisible();
 
             await basePage.continueAfterSignup();
             await expect(
-                page.getByText(/Logged in as/i)
+               basePage.loggedInLabel
             ).toBeVisible();
 
             console.log(
