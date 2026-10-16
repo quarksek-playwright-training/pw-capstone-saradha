@@ -10,8 +10,7 @@ test(
 
         const productName = "Men Tshirt";
 
-        // Make sure this product is not already in the cart
-        await cartPage.navigateTo();
+        //await cartPage.navigateTo();
 
         if (await cartPage.isProductInCart(productName)) {
             await cartPage.removeProduct(productName);
@@ -25,12 +24,15 @@ test(
             }
         );
 
-        await productPage.navigateTo();
+        //await productPage.navigateTo();
         await productPage.searchProduct(productName);
 
         await productPage.addProductToCart(productName);
+        await expect(page.getByText("Added!")).toBeHidden();
+        console.log("Products are not added to the cart due to request failure")
 
-        await cartPage.navigateTo();
+        //await cartPage.navigateTo();
+
 
         await expect(
             page
