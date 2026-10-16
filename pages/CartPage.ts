@@ -11,6 +11,7 @@ export class CartPage extends BasePage {
     private emptyCartMessage = this.page.getByText(
         "Cart is empty! Click here to buy products."
     );
+      tableRows = this.page.locator("#cart_info_table tbody tr");
 
     async getProductNames(): Promise<string[]> {
         return await this.cartRows
