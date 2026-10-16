@@ -28,16 +28,12 @@ test(
         await productPage.searchProduct(productName);
 
         await productPage.addProductToCart(productName);
-        await expect(page.getByText("Added!")).toBeHidden();
+        await expect(productPage.addedMessage).toBeHidden();
         console.log("Products are not added to the cart due to request failure")
 
         //await cartPage.navigateTo();
 
 
-        await expect(
-            page
-                .locator("#cart_info_table tbody tr")
-                .filter({ hasText: productName })
-        ).toHaveCount(0);
+        await expect(cartPage.tableRows.filter({ hasText: productName })).toHaveCount(0);
     }
 );

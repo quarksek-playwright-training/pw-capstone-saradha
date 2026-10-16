@@ -14,9 +14,9 @@ test(
 
         await productPage.addProductToCart(productName);
 
-        await expect(page.getByText("Added!")).toBeVisible();
+        await expect(productPage.addedMessage).toBeVisible();
 
-        await page.getByText("View Cart").click();
+        await productPage.viewCartLink.click();
 
         
         const productNames = await cartPage.getProductNames();

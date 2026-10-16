@@ -21,11 +21,11 @@ test(
         });
 
         await basePage.submitSupportForm(
-            "Saradha",
-            "saradha@example.com",
-            "Test Support Request",
-            "This is a test message for the support form."
-        );
+             process.env.SUPPORT_NAME!,
+             process.env.SUPPORT_EMAIL!,
+             process.env.SUPPORT_SUBJECT!,
+             process.env.SUPPORT_MESSAGE!
+);
 
         await expect(
             page

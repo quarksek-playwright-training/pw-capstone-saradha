@@ -9,28 +9,20 @@ for (const searchTerm of searchTerms) {
             tag: ["@regression", "@search"],
         },
         async ({ productPage, page }) => {
-
-        
-            //await productPage.navigateTo();
-
-    
             await productPage.searchProduct(searchTerm);
 
-     
-            const products = page.locator(".productinfo");
+      const products = productPage.getProducts();
+        await expect(products.first()).toBeVisible();
 
-    
-            await expect(products.first()).toBeVisible();
+     const productCount = await productPage.getProductCount();
+      console.log(`Number of products found: ${productCount}`);
 
-            const productCount = await products.count();
-            console.log(`Number of products found: ${productCount}`);
+     const productNames = await productPage.getProductNames();
 
-            for (let i = 0; i < productCount; i++) {
+    for (const productName of productNames) {
+    expect(productName).toContain(searchTerm);
+      }
 
-                const product = products.nth(i);
-
-                await expect(product).toContainText(searchTerm);
-            }
         }
     );
 }
